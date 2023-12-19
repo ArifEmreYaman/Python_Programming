@@ -4,7 +4,7 @@ import easyocr
 from imutils.video import VideoStream
 import threading
 
-class Görüntüİsleme:
+class Image_Processing:
     def __init__(self):
         self.model = torch.hub.load('ultralytics/yolov5', 'custom', path='alfa.pt', force_reload=True)
         self.model2 = torch.hub.load('ultralytics/yolov5', 'custom', path='yolov5l.pt', force_reload=True)
@@ -16,7 +16,7 @@ class Görüntüİsleme:
         self.cap = VideoStream(src=0).start()
         self.bulunan = 0
         
-    def uzun_sureli_islem(self, crop_img):
+    def plate_reading(self, crop_img):
         result = self.reader.readtext(crop_img)
         if result:
             text = result[0][1]
@@ -69,7 +69,7 @@ class Görüntüİsleme:
                     crop_img = frame[int(y1):int(y2), int(x1):int(x2)]
                     if self.bulunan == 0:
                         self.bulunan=1
-                        okuma = threading.Thread(target=self.uzun_sureli_islem, args=(crop_img,))
+                        okuma = threading.Thread(target=self.plate_reading, args=(crop_img,))
                         okuma.start()
 
                     cv2.rectangle(overlay, (int(x1), int(y1)), (int(x2), int(y2)), (0, 0, 255), 1)
@@ -85,5 +85,5 @@ class Görüntüİsleme:
         cv2.destroyAllWindows()
 
 if __name__ == '__main__':
-    program = Görüntüİşleme()
+    program = Image_Processing()
     program.main()
