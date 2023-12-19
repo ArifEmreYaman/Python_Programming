@@ -26,7 +26,7 @@ Threads are used to reduce the workload and make the code run faster.
 
 
 
-## Ekler
+## Appendix
 
 https://developer.nvidia.com/cuda-11-6-0-download-archive
 https://developer.nvidia.com/rdp/cudnn-archive
